@@ -19,7 +19,7 @@
 ---
 
 ![Version](https://img.shields.io/badge/Version-4.0-red?style=for-the-badge&logo=github)
-![Tools](https://img.shields.io/badge/Total_Tools-3000+-brightgreen?style=for-the-badge&logo=kalilinux)
+![Tools](https://img.shields.io/badge/Total_Tools-10,000+-brightgreen?style=for-the-badge&logo=kalilinux)
 ![Platform](https://img.shields.io/badge/Platform-Linux_|_Termux_|_WSL-blue?style=for-the-badge&logo=linux)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
@@ -49,11 +49,11 @@
 
 ## 📖 Overview
 
-**F-SOCIETY Tools Installer** is a state-of-the-art penetration testing toolkit aggregator developed for the cyber security community. Born from the vision of making advanced security tools accessible across all platforms, F-SOCIETY has evolved from a simple installer into a comprehensive framework housing **3000+ security tools** under one unified interface.
+**F-SOCIETY Tools Installer** is a state-of-the-art penetration testing toolkit aggregator developed for the cyber security community. Born from the vision of making advanced security tools accessible across all platforms, F-SOCIETY has evolved from a simple installer into a comprehensive framework housing **10,000+ security tools** under one unified interface.
 
 | Aspect | F-SOCIETY | Traditional Toolkits |
 |---|---|---|
-| Tool Count | **3000+** | 100–500 |
+| Tool Count | **10,000** | 100–500 |
 | Platform Support | Linux + Android + WSL | Linux Only |
 | Installation | One-Click Automated | Manual Per Tool |
 | Updates | Rolling / Priority | Irregular |
@@ -310,7 +310,7 @@ pip install lolcat figlet
 
 # 4. Clone & run
 git clone https://github.com/Athexblackhat/F-SOCIETY
-cd F-SOCIETY && chmod +x f-society.sh && bash f-society.sh
+cd F-SOCIETY && chmod +x run.sh && bash run.sh
 ```
 
 > ⚠️ **Note:** Wireless tools require root access on Android.
@@ -383,18 +383,6 @@ flowchart TD
 
 > ⚠️ **F-SOCIETY is NO LONGER FREE.** A valid license key is mandatory for access as of v4.0.
 
-### License Tiers
-
-| Feature | Basic | Professional | Enterprise |
-|---|:---:|:---:|:---:|
-| Duration | 3 Months | 1 Year | **Lifetime** |
-| Tools Access | 1000+ | 2500+ | **3000+** |
-| Updates | Monthly | Weekly | **Priority** |
-| Support | Community | Email + Chat | **24/7 Dedicated** |
-| Custom Tools | ❌ | ✅ Request | ✅ Unlimited |
-| Commercial Use | ❌ | ✅ | ✅ |
-| API Access | ❌ | ✅ | ✅ |
-| Training | ❌ | Basic | **Advanced** |
 
 ### How to Purchase
 
@@ -425,30 +413,49 @@ timeline
                : Private beta
                : 200 tools bundled
                : Community bug testing
-    Early 2025 : v2.0 Foundation
+    Early 2025 : v1.5 Foundation
                : 500+ core tools
                : Public release
                : Termux support added
-    Oct 23 2025 : v3.0 Renaissance
+    Oct 23 2025 : v2.0 Renaissance
                 : New tools & fixes
                 : Logo & animation refresh
                 : Faster installation
-    Oct 24 2025 : v3.5 Evolution
+    Oct 24 2025 : v2.5 Evolution
                 : 2 new toolkits — 800+ tools
                 : Port forwarding fixed
                 : 89 tools updated
-    Oct 26 2025 : v3.8 Phoenix
+    Oct 26 2025 : v3 Phoenix
                 : 370+ new tools
                 : Cloud & IoT categories
                 : Green color scheme
-    Dec 22 2025 : v4.0 New Dawn
+    Dec 22 2025 : v3.5 New Dawn
                 : License system launched
                 : AES-256 encryption
                 : Complete UI redesign
                 : 40% faster installs
+    MAY 27 2026 : v4.0 Ultimate
+                : License system Enhanced
+                : AES-256 encryption + xor + base64
+                : Complete UI redesign
+                : 6Thousand+ New Tools Added
 ```
+### 🔥 v4 — "Ultimate" *(MAY 27, 2026)*
+<details>
+<summary><b>View full changelog</b></summary>
 
-### 🔥 v4.0 — "New Dawn" *(December 22, 2025)*
+**Major Changes:**
+- 🔴 Licensing system implemented — no more free access
+- 🆕 50+ new major tools added
+- 🛠 6000+ new tools integrated
+- 🎨 Complete UI redesign — new animated banners
+- 🔐 AES-256 encryption on all sensitive data
+- 🛡 Anti-tamper protection with self-defense mechanisms
+- 📱 Improved Termux / Android compatibility
+- ⚡ 40% faster installation via parallel downloads
+- 🐛 50+ reported bugs resolved
+- 
+### 🔥 v3 — "New Dawn" *(December 22, 2025)*
 
 <details>
 <summary><b>View full changelog</b></summary>
@@ -478,7 +485,7 @@ API Security:      postman-cli · graphql-scanner · swagger-parser · api-fuzze
 
 </details>
 
-### 🔥 v3.8 — "Phoenix" *(October 26, 2025)*
+### 🔥 v2 — "Phoenix" *(October 26, 2025)*
 
 <details>
 <summary><b>View full changelog</b></summary>
@@ -491,7 +498,7 @@ API Security:      postman-cli · graphql-scanner · swagger-parser · api-fuzze
 
 </details>
 
-### 🔥 v3.5 — "Evolution" *(October 24, 2025)*
+### 🔥 v1 — "Evolution" *(October 24, 2025)*
 
 <details>
 <summary><b>View full changelog</b></summary>
@@ -506,49 +513,6 @@ API Security:      postman-cli · graphql-scanner · swagger-parser · api-fuzze
 
 ---
 
-## 📁 Directory Structure
-
-```
-F-SOCIETY/
-│
-├── run.sh                    # Main installer & launcher
-├── f-society.sh              # Legacy main script
-├── requirements.txt          # Python dependencies
-├── secretkey.txt             # License validation
-├── README.md                 # Documentation
-├── SECURITY.md               # Security policy
-├── LICENSE                   # MIT License
-│
-├── src/
-│   ├── run.sh                # Core encrypted toolkit
-│   └── modules/
-│       ├── installer.sh      # Tool installation
-│       ├── updater.sh        # Auto-update module
-│       └── security.sh       # Encryption & auth
-│
-├── tools/
-│   ├── recon/
-│   ├── scanning/
-│   ├── exploitation/
-│   ├── wireless/
-│   ├── forensics/
-│   ├── web/
-│   ├── password/
-│   └── utilities/
-│
-├── config/
-│   ├── settings.conf
-│   ├── paths.conf
-│   └── banner.txt
-│
-├── logs/
-│   ├── install.log
-│   ├── error.log
-│   └── update.log
-│
-└── tmp/
-    └── cache/
-```
 
 ---
 
