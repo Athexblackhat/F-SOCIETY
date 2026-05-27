@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F-SOCIETY Tools Installer — ATHEX BLACK HAT</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ff41;
+    --green-dim: #00cc33;
+    --green-dark: #003311;
+    --red: #ff2222;
+    --amber: #ffaa00;
+    --cyan: #00eeff;
+    --bg: #020d04;
+    --bg2: #040f06;
+    --card: #050e07;
+    --border: #00ff4133;
+    --border-bright: #00ff4166;
+    --text: #c8ffd0;
+    --muted: #4a7a50;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-display: 'Orbitron', monospace;
+    --font-body: 'Exo 2', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* Scanlines overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,255,65,0.015) 2px,
+      rgba(0,255,65,0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Matrix rain canvas */
+  #matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    position: relative;
+  }
+
+  .skull-icon {
+    font-size: 3rem;
+    animation: pulse-skull 2s ease-in-out infinite;
+    display: block;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 20px var(--green));
+  }
+
+  @keyframes pulse-skull {
+    0%,100% { transform: scale(1); filter: drop-shadow(0 0 20px var(--green)); }
+    50% { transform: scale(1.08); filter: drop-shadow(0 0 40px var(--green)) drop-shadow(0 0 80px var(--green-dim)); }
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--green);
+    text-shadow: 0 0 30px var(--green), 0 0 60px var(--green-dim);
+    letter-spacing: 0.15em;
+    animation: title-flicker 8s linear infinite;
+    line-height: 1.1;
+  }
+
+  @keyframes title-flicker {
+    0%,95%,100% { opacity: 1; }
+    96% { opacity: 0.85; }
+    97% { opacity: 1; }
+    98% { opacity: 0.9; }
+    99% { opacity: 1; }
+  }
+
+  .hero-sub {
+    font-family: var(--font-mono);
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-author {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    color: var(--amber);
+    letter-spacing: 0.3em;
+    margin-top: 0.5rem;
+    text-shadow: 0 0 10px var(--amber);
+  }
+
+  /* Badges */
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid;
+    letter-spacing: 0.08em;
+    position: relative;
+    overflow: hidden;
+  }
+  .badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    opacity: 0.07;
+  }
+  .badge-green { color: var(--green); border-color: var(--green); }
+  .badge-red { color: var(--red); border-color: var(--red); }
+  .badge-amber { color: var(--amber); border-color: var(--amber); }
+  .badge-cyan { color: var(--cyan); border-color: var(--cyan); }
+
+  /* Terminal typing block */
+  .terminal-block {
+    background: #000;
+    border: 1px solid var(--border-bright);
+    border-radius: 0;
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--green);
+    text-align: left;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,255,65,0.1), inset 0 0 30px rgba(0,0,0,0.5);
+    margin: 1.5rem 0;
+  }
+  .terminal-block .bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5555; }
+  .dot-y { background: #ffdd55; }
+  .dot-g { background: #55ff55; }
+  .bar-title { color: var(--muted); font-size: 0.75rem; margin-left: auto; letter-spacing: 0.1em; }
+  .prompt { color: var(--green-dim); }
+  .cmd { color: var(--green); }
+  .out { color: #4aff80; }
+  .err { color: var(--red); }
+  .warn { color: var(--amber); }
+  .cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--green);
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ── SECTION ── */
+  section { padding: 3rem 0; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--green-dim), transparent);
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 10px var(--green);
+  }
+
+  /* ── STAT CARDS ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .stat-card {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green);
+  }
+  .stat-card:hover {
+    border-color: var(--green-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0,255,65,0.1);
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--green);
+    text-shadow: 0 0 15px var(--green);
+    display: block;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+  }
+  .stat-icon {
+    position: absolute;
+    right: 1rem; top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    opacity: 0.08;
+  }
+
+  /* Animated counter */
+  .counter { display: inline-block; }
+
+  /* ── PLATFORM BAR ── */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+  }
+  .platform-card {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .platform-card:hover { border-color: var(--green-dim); }
+  .platform-name { color: var(--green); font-weight: 700; margin-bottom: 0.4rem; }
+  .platform-status { font-size: 0.7rem; }
+  .status-full { color: #00ff88; }
+  .status-exp { color: var(--amber); }
+  .platform-arch { color: var(--muted); font-size: 0.65rem; margin-top: 0.2rem; }
+
+  /* ── CATEGORY GRID ── */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .cat-card {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 1.25rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+    box-shadow: 0 0 8px var(--green);
+  }
+  .cat-card:hover::after { transform: scaleX(1); }
+  .cat-card:hover { border-color: var(--border-bright); box-shadow: 0 0 20px rgba(0,255,65,0.07); }
+  .cat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+  .cat-name {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .cat-count {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+  }
+  .cat-tools {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .cat-tools span {
+    display: inline-block;
+    margin-right: 0.4rem;
+    color: var(--cyan);
+  }
+
+  /* ── ANIMATED RING CHART ── */
+  .chart-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (max-width: 700px) { .chart-section { grid-template-columns: 1fr; } }
+
+  .ring-chart-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .ring-chart-wrap svg { overflow: visible; }
+  .ring-center-text {
+    position: absolute;
+    text-align: center;
+    pointer-events: none;
+  }
+  .ring-big {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green);
+    display: block;
+  }
+  .ring-small {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .chart-legend { display: flex; flex-direction: column; gap: 0.75rem; }
+  .legend-item { display: flex; align-items: center; gap: 0.75rem; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .legend-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); flex: 1; }
+  .legend-pct { font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); }
+
+  /* ── BAR CHART ── */
+  .bar-chart { display: flex; flex-direction: column; gap: 1rem; }
+  .bar-row { display: grid; grid-template-columns: 160px 1fr 60px; align-items: center; gap: 1rem; }
+  .bar-label { font-family: var(--font-mono); font-size: 0.73rem; color: var(--muted); text-align: right; }
+  .bar-track { background: #0a1a0c; border-radius: 0; height: 18px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    background: var(--green);
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    position: relative;
+    box-shadow: 0 0 8px var(--green);
+  }
+  .bar-fill::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: #fff;
+    opacity: 0.4;
+  }
+  .bar-val { font-family: var(--font-mono); font-size: 0.73rem; color: var(--amber); }
+
+  /* ── COMPAT MATRIX ── */
+  .matrix-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.78rem; }
+  .matrix-table th {
+    color: var(--green);
+    font-weight: 700;
+    text-align: center;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.08em;
+  }
+  .matrix-table th:first-child { text-align: left; }
+  .matrix-table td {
+    padding: 0.6rem 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid #00ff4111;
+    color: var(--muted);
+  }
+  .matrix-table td:first-child { text-align: left; color: var(--text); }
+  .matrix-table tr:hover td { background: rgba(0,255,65,0.03); }
+  .chk-full { color: #00ff88; }
+  .chk-warn { color: var(--amber); }
+  .chk-no { color: var(--red); opacity: 0.6; }
+
+  /* ── INSTALL TABS ── */
+  .tabs { display: flex; gap: 0; margin-bottom: 0; }
+  .tab-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+    border-bottom: none;
+  }
+  .tab-btn.active { color: var(--green); background: var(--card); border-color: var(--border-bright); }
+  .tab-btn:hover:not(.active) { color: var(--text); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── LICENSE ── */
+  .license-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .lic-card {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .lic-card.featured {
+    border-color: var(--amber);
+    box-shadow: 0 0 30px rgba(255,170,0,0.1);
+  }
+  .lic-card.featured::before {
+    content: '★ RECOMMENDED';
+    position: absolute;
+    top: -1px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--amber);
+    color: #000;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    padding: 0.15rem 0.6rem;
+    letter-spacing: 0.1em;
+  }
+  .lic-tier {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+  .lic-feature {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+  }
+  .lic-check { color: #00ff88; }
+  .lic-x { color: var(--red); }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--green), transparent);
+  }
+  .tl-item { position: relative; margin-bottom: 2rem; }
+  .tl-dot {
+    position: absolute;
+    left: -2.35rem; top: 0.2rem;
+    width: 12px; height: 12px;
+    border: 2px solid var(--green);
+    background: var(--bg);
+    border-radius: 0;
+    box-shadow: 0 0 10px var(--green);
+  }
+  .tl-ver {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.1em;
+  }
+  .tl-date { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); margin: 0.1rem 0 0.5rem; }
+  .tl-changes { display: flex; flex-direction: column; gap: 0.3rem; }
+  .tl-change { font-family: var(--font-mono); font-size: 0.73rem; color: var(--text); }
+  .tl-change::before { content: '▶ '; color: var(--green); }
+
+  /* ── FAQ ── */
+  .faq-item {
+    border: 1px solid var(--border);
+    background: var(--card);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--green);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .faq-q:hover { background: rgba(0,255,65,0.04); }
+  .faq-arrow { transition: transform 0.3s; font-size: 0.7rem; color: var(--muted); }
+  .faq-item.open .faq-arrow { transform: rotate(90deg); }
+  .faq-a {
+    padding: 0 1.25rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .faq-item.open .faq-a {
+    max-height: 200px;
+    padding: 0.75rem 1.25rem 1rem;
+  }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    border: 1px solid var(--red);
+    background: rgba(255,34,34,0.04);
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255,34,34,0.07);
+  }
+  .disclaimer::before {
+    content: '⚠ LEGAL DISCLAIMER ⚠';
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    color: var(--red);
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 10px var(--red);
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .dis-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 600px) { .dis-row { grid-template-columns: 1fr; } }
+  .dis-col ul { list-style: none; }
+  .dis-col li { font-family: var(--font-mono); font-size: 0.75rem; padding: 0.25rem 0; color: var(--muted); }
+  .dis-col li.ok::before { content: '✅ '; }
+  .dis-col li.no::before { content: '❌ '; color: var(--red); }
+  .dis-head { font-family: var(--font-mono); font-size: 0.72rem; color: var(--amber); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  footer .glitch {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--green);
+    text-shadow: 0 0 20px var(--green);
+    letter-spacing: 0.3em;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+  .contact-item { color: var(--cyan); }
+
+  /* divider */
+  .divider { height: 1px; background: linear-gradient(to right, transparent, var(--border-bright), transparent); margin: 0.5rem 0; }
+
+  /* Glow effect on scroll */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--green-dark); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--green-dim); }
+
+  .toc { display: flex; flex-direction: column; gap: 0.3rem; }
+  .toc a { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; padding: 0.2rem 0; transition: color 0.2s; }
+  .toc a::before { content: '// '; color: var(--green-dark); }
+  .toc a:hover { color: var(--green); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .bar-row { grid-template-columns: 80px 1fr 50px; } .bar-label { font-size: 0.62rem; } }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-canvas"></canvas>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<div class="hero container">
+  <span class="skull-icon">☠</span>
+  <h1 class="hero-title">F-SOCIETY</h1>
+  <p class="hero-sub">TOOLS INSTALLER // VERSION 4.0 // 2026 EDITION</p>
+  <p class="hero-author">CRAFTED WITH PRECISION BY ATHEX BLACK HAT</p>
+
+  <div class="badge-row">
+    <span class="badge badge-green">v4.0 ACTIVE</span>
+    <span class="badge badge-red">3000+ TOOLS</span>
+    <span class="badge badge-amber">LINUX | TERMUX | WSL</span>
+    <span class="badge badge-cyan">MIT LICENSE</span>
+    <span class="badge badge-green">MAINTAINED</span>
+  </div>
+
+  <div class="terminal-block">
+    <div class="bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span class="bar-title">root@kali:~/F-SOCIETY</span>
+    </div>
+    <div id="typed-output"></div>
+    <span class="cursor"></span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════ TOC ═══════════════ -->
+  <section class="fade-in">
+    <div class="section-header">
+      <span class="section-num">00</span>
+      <span class="section-title">TABLE OF CONTENTS</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="toc">
+      <a href="#overview">Overview & Mission</a>
+      <a href="#stats">Arsenal Statistics</a>
+      <a href="#platforms">Platform Support</a>
+      <a href="#categories">Tool Categories</a>
+      <a href="#compat">Compatibility Matrix</a>
+      <a href="#install">Installation Guide</a>
+      <a href="#license">License System</a>
+      <a href="#changelog">Update History</a>
+      <a href="#faq">FAQ</a>
+      <a href="#disclaimer">Legal Disclaimer</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ STATS ═══════════════ -->
+  <section id="stats" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">ARSENAL STATISTICS</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <span class="stat-num"><span class="counter" data-target="3000" data-suffix="+">0</span></span>
+        <span class="stat-label">// TOTAL TOOLS</span>
+        <span class="stat-icon">🔧</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num"><span class="counter" data-target="20" data-suffix="+">0</span></span>
+        <span class="stat-label">// CATEGORIES</span>
+        <span class="stat-icon">📁</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num"><span class="counter" data-target="8" data-suffix="">0</span></span>
+        <span class="stat-label">// PLATFORMS</span>
+        <span class="stat-icon">💻</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num"><span class="counter" data-target="1000" data-suffix="+">0</span></span>
+        <span class="stat-label">// DEV HOURS</span>
+        <span class="stat-icon">⏱</span>
+      </div>
+    </div>
+
+    <!-- Donut + bar -->
+    <div class="chart-section fade-in">
+      <div class="ring-chart-wrap">
+        <svg id="ring-svg" width="220" height="220" viewBox="0 0 220 220">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+        </svg>
+        <div class="ring-center-text">
+          <span class="ring-big">3K+</span>
+          <span class="ring-small">TOOLS</span>
+        </div>
+      </div>
+      <div class="chart-legend" id="ring-legend"></div>
+    </div>
+
+    <div style="margin-top:2rem;" class="fade-in">
+      <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem;">// TOOL DISTRIBUTION BY CATEGORY</p>
+      <div class="bar-chart" id="bar-chart"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PLATFORMS ═══════════════ -->
+  <section id="platforms" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">PLATFORM SUPPORT</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-card"><div class="platform-name">Kali Linux</div><div class="platform-status status-full">● OPTIMAL</div><div class="platform-arch">x86_64 / ARM64 · 2024.1+</div></div>
+      <div class="platform-card"><div class="platform-name">Ubuntu</div><div class="platform-status status-full">● FULL</div><div class="platform-arch">x86_64 · 20.04 / 22.04 / 24.04</div></div>
+      <div class="platform-card"><div class="platform-name">Debian</div><div class="platform-status status-full">● FULL</div><div class="platform-arch">x86_64 / ARM64 · 11 / 12</div></div>
+      <div class="platform-card"><div class="platform-name">Parrot OS</div><div class="platform-status status-full">● FULL</div><div class="platform-arch">x86_64 · 5.0+</div></div>
+      <div class="platform-card"><div class="platform-name">Black Arch</div><div class="platform-status status-full">● FULL</div><div class="platform-arch">x86_64 · Latest</div></div>
+      <div class="platform-card"><div class="platform-name">Termux</div><div class="platform-status status-full">● FULL</div><div class="platform-arch">ARM64 · Android</div></div>
+      <div class="platform-card"><div class="platform-name">Fedora</div><div class="platform-status status-exp">◑ EXPERIMENTAL</div><div class="platform-arch">x86_64 · 38+</div></div>
+      <div class="platform-card"><div class="platform-name">macOS</div><div class="platform-status status-exp">◑ EXPERIMENTAL</div><div class="platform-arch">Monterey+ · M1/M2 partial</div></div>
+      <div class="platform-card"><div class="platform-name">Windows WSL2</div><div class="platform-status status-exp">◑ PARTIAL</div><div class="platform-arch">Ubuntu WSL · limited net</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CATEGORIES ═══════════════ -->
+  <section id="categories" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">TOOL CATEGORIES</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="cat-grid" id="cat-grid"></div>
+  </section>
+
+  <!-- ═══════════════ COMPAT MATRIX ═══════════════ -->
+  <section id="compat" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">COMPATIBILITY MATRIX</span>
+      <div class="section-line"></div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Tool Category</th>
+            <th>Linux</th>
+            <th>Termux</th>
+            <th>macOS</th>
+            <th>WSL</th>
+          </tr>
+        </thead>
+        <tbody id="compat-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════ INSTALL ═══════════════ -->
+  <section id="install" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">INSTALLATION GUIDE</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('linux',this)">LINUX</button>
+      <button class="tab-btn" onclick="switchTab('termux',this)">TERMUX</button>
+      <button class="tab-btn" onclick="switchTab('fedora',this)">FEDORA</button>
+      <button class="tab-btn" onclick="switchTab('macos',this)">macOS</button>
+    </div>
+    <div id="tab-linux" class="tab-content active">
+      <div class="terminal-block" style="margin-top:0;border-top:none;">
+        <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">bash — one-line install</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">sudo apt-get update -y && sudo apt-get upgrade -y</span></div>
+        <div><span class="out">[✓] System updated successfully</span></div>
+        <div style="margin-top:0.5rem;"><span class="prompt">$ </span><span class="cmd">sudo apt-get install -y git curl python3 python3-pip</span></div>
+        <div><span class="out">[✓] Dependencies installed</span></div>
+        <div style="margin-top:0.5rem;"><span class="prompt">$ </span><span class="cmd">git clone https://github.com/Athexblackhat/F-SOCIETY</span></div>
+        <div><span class="out">[✓] Repository cloned → ~/F-SOCIETY</span></div>
+        <div style="margin-top:0.5rem;"><span class="prompt">$ </span><span class="cmd">cd F-SOCIETY && chmod +x run.sh && bash run.sh</span></div>
+        <div><span class="out">[✓] Launcher initialised — enter license key to proceed</span></div>
+      </div>
+    </div>
+    <div id="tab-termux" class="tab-content">
+      <div class="terminal-block" style="margin-top:0;border-top:none;">
+        <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">termux (android)</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">pkg update -y && pkg upgrade -y</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">pkg install git python curl openssl -y</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">pip install lolcat figlet</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">git clone https://github.com/Athexblackhat/F-SOCIETY</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">cd F-SOCIETY && chmod +x f-society.sh && bash f-society.sh</span></div>
+        <div style="margin-top:0.5rem;"><span class="warn">[!] Note: wireless tools require root access</span></div>
+      </div>
+    </div>
+    <div id="tab-fedora" class="tab-content">
+      <div class="terminal-block" style="margin-top:0;border-top:none;">
+        <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">fedora / rhel / centos</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">sudo dnf update -y</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">sudo dnf install -y git python3 python3-pip curl openssl gcc make</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">pip3 install lolcat figlet requests colorama</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">git clone https://github.com/Athexblackhat/F-SOCIETY && cd F-SOCIETY</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">chmod +x run.sh && bash run.sh</span></div>
+        <div style="margin-top:0.5rem;"><span class="warn">[!] Note: some packages unavailable on Fedora</span></div>
+      </div>
+    </div>
+    <div id="tab-macos" class="tab-content">
+      <div class="terminal-block" style="margin-top:0;border-top:none;">
+        <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">macos (homebrew required)</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">brew install git python3 openssl</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">git clone https://github.com/Athexblackhat/F-SOCIETY && cd F-SOCIETY</span></div>
+        <div><span class="prompt">$ </span><span class="cmd">bash run.sh</span></div>
+        <div style="margin-top:0.5rem;"><span class="warn">[!] M1/M2: experimental — some tools ARM-incompatible</span></div>
+      </div>
+    </div>
+
+    <!-- Requirements -->
+    <div style="margin-top:1.5rem;" class="grid2 fade-in">
+      <div class="terminal-block" style="margin:0;">
+        <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">requirements</span></div>
+        <div><span class="prompt">RAM     </span><span class="cmd">512 MB min · 4 GB recommended</span></div>
+        <div><span class="prompt">STORAGE </span><span class="cmd">2 GB min · 10 GB recommended</span></div>
+        <div><span class="prompt">PYTHON  </span><span class="cmd">3.6+ (3.11+ preferred)</span></div>
+        <div><span class="prompt">GIT     </span><span class="cmd">Any version</span></div>
+        <div><span class="prompt">SHELL   </span><span class="cmd">Bash 4.0+ (5.0+ ideal)</span></div>
+        <div><span class="prompt">NET     </span><span class="cmd">Any · broadband preferred</span></div>
+      </div>
+      <div class="terminal-block" style="margin:0;">
+        <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">post-install</span></div>
+        <div><span class="out">╔══════════════════════════════╗</span></div>
+        <div><span class="out">║  ✅ INSTALLATION COMPLETE     ║</span></div>
+        <div><span class="out">║                              ║</span></div>
+        <div><span class="out">║  Location : ~/F-SOCIETY       ║</span></div>
+        <div><span class="out">║  Tools    : 3000+             ║</span></div>
+        <div><span class="out">║  Run again: bash run.sh       ║</span></div>
+        <div><span class="out">╚══════════════════════════════╝</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECURITY ═══════════════ -->
+  <section class="fade-in">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">SECURITY ARCHITECTURE</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="grid2">
+      <div>
+        <div class="terminal-block">
+          <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">encryption layer</span></div>
+          <div><span class="out">AES-256-CBC Encryption</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">Password Protection</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">Key Split Storage</span></div>
+          <div><span class="prompt">└── </span><span class="cmd">Salt + PBKDF2 Derivation</span></div>
+        </div>
+        <div class="terminal-block">
+          <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">authentication</span></div>
+          <div><span class="out">Multi-Factor Authentication</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">License Key Verification</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">Hardware ID Binding</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">Time-based Expiry</span></div>
+          <div><span class="prompt">└── </span><span class="cmd">Brute Force Protection (3×)</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="terminal-block">
+          <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">anti-tamper</span></div>
+          <div><span class="out">Integrity Verification</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">Checksum Validation</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">Signature Detection</span></div>
+          <div><span class="prompt">├── </span><span class="cmd">Modification Alert</span></div>
+          <div><span class="prompt">└── </span><span class="cmd">Self-Defense Protocol</span></div>
+        </div>
+        <div class="terminal-block">
+          <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">tamper response</span></div>
+          <div><span class="prompt">Sig Removed  </span><span class="err">→ LOCKOUT</span></div>
+          <div><span class="prompt">Code Modified </span><span class="err">→ SELF-DESTRUCT</span></div>
+          <div><span class="prompt">Debug Attempt </span><span class="err">→ TERMINATION</span></div>
+          <div><span class="prompt">Str Extraction</span><span class="warn">→ FAKE DATA</span></div>
+          <div><span class="prompt">Unauth Access </span><span class="err">→ LOCKDOWN</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ LICENSE ═══════════════ -->
+  <section id="license" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <span class="section-title">LICENSE & ACCESS</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="license-grid">
+      <div class="lic-card">
+        <div class="lic-tier">BASIC</div>
+        <div class="lic-feature"><span>Tools</span><span class="lic-check">1000+</span></div>
+        <div class="lic-feature"><span>Duration</span><span class="lic-check">3 Months</span></div>
+        <div class="lic-feature"><span>Updates</span><span>Monthly</span></div>
+        <div class="lic-feature"><span>Support</span><span>Community</span></div>
+        <div class="lic-feature"><span>Custom Tools</span><span class="lic-x">✗</span></div>
+        <div class="lic-feature"><span>Commercial</span><span class="lic-x">✗</span></div>
+        <div class="lic-feature"><span>API Access</span><span class="lic-x">✗</span></div>
+      </div>
+      <div class="lic-card featured">
+        <div class="lic-tier">PROFESSIONAL</div>
+        <div class="lic-feature"><span>Tools</span><span class="lic-check">2500+</span></div>
+        <div class="lic-feature"><span>Duration</span><span class="lic-check">1 Year</span></div>
+        <div class="lic-feature"><span>Updates</span><span class="lic-check">Weekly</span></div>
+        <div class="lic-feature"><span>Support</span><span class="lic-check">Email + Chat</span></div>
+        <div class="lic-feature"><span>Custom Tools</span><span class="lic-check">✓ Request</span></div>
+        <div class="lic-feature"><span>Commercial</span><span class="lic-check">✓</span></div>
+        <div class="lic-feature"><span>API Access</span><span class="lic-check">✓</span></div>
+      </div>
+      <div class="lic-card">
+        <div class="lic-tier">ENTERPRISE</div>
+        <div class="lic-feature"><span>Tools</span><span class="lic-check">3000+</span></div>
+        <div class="lic-feature"><span>Duration</span><span class="lic-check">Lifetime</span></div>
+        <div class="lic-feature"><span>Updates</span><span class="lic-check">Priority</span></div>
+        <div class="lic-feature"><span>Support</span><span class="lic-check">24/7 Dedicated</span></div>
+        <div class="lic-feature"><span>Custom Tools</span><span class="lic-check">✓ Unlimited</span></div>
+        <div class="lic-feature"><span>Commercial</span><span class="lic-check">✓</span></div>
+        <div class="lic-feature"><span>API Access</span><span class="lic-check">✓</span></div>
+      </div>
+    </div>
+    <div class="terminal-block fade-in" style="margin-top:1.5rem;">
+      <div class="bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="bar-title">purchase / contact</span></div>
+      <div><span class="prompt">WhatsApp  </span><span class="cmd">+92 349-0916663</span></div>
+      <div><span class="prompt">GitHub    </span><span class="cmd">github.com/Athexblackhat</span></div>
+      <div><span class="prompt">Response  </span><span class="out">Within 24 hours</span></div>
+      <div style="margin-top:0.75rem;"><span class="prompt">Hours     </span><span class="cmd">Mon–Fri 09:00–22:00 PKT · Sat 12:00–18:00</span></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CHANGELOG ═══════════════ -->
+  <section id="changelog" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <span class="section-title">UPDATE HISTORY</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-ver">v4.0 — "New Dawn"</div>
+        <div class="tl-date">December 22, 2025</div>
+        <div class="tl-changes">
+          <div class="tl-change" style="color:var(--red);">Licensing system implemented — paid access required</div>
+          <div class="tl-change">370+ new tools integrated (nuclei, subfinder, httpx, katana)</div>
+          <div class="tl-change">AES-256 encryption + anti-tamper protection added</div>
+          <div class="tl-change">Complete UI redesign with animated banners</div>
+          <div class="tl-change">Cloud security & API security categories launched</div>
+          <div class="tl-change">40% faster installation via parallel downloads</div>
+          <div class="tl-change">50+ bug reports resolved</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-ver">v3.8 — "Phoenix"</div>
+        <div class="tl-date">October 26, 2025</div>
+        <div class="tl-changes">
+          <div class="tl-change">370+ tools added — cloud security & IoT categories</div>
+          <div class="tl-change">Full green color scheme for better terminal visibility</div>
+          <div class="tl-change">AWS / Azure / GCP penetration testing suites</div>
+          <div class="tl-change">Firmware analysis & MQTT protocol tools</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-ver">v3.5 — "Evolution"</div>
+        <div class="tl-date">October 24, 2025</div>
+        <div class="tl-changes">
+          <div class="tl-change">2 new toolkits — 800+ additional tools total</div>
+          <div class="tl-change">Port forwarding fixed (long-standing issue)</div>
+          <div class="tl-change">Metasploit DB connection + Bettercap UI resolved</div>
+          <div class="tl-change">89 existing tools updated and patched</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-ver">v3.0 — "Renaissance"</div>
+        <div class="tl-date">October 23, 2025</div>
+        <div class="tl-changes">
+          <div class="tl-change">New tools added + old tools fixed</div>
+          <div class="tl-change">New logo, animations, faster installation</div>
+          <div class="tl-change">Improved Termux / Android support</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-ver">v2.0 — "Foundation"</div>
+        <div class="tl-date">Early 2025</div>
+        <div class="tl-changes">
+          <div class="tl-change">500+ core tools — public release</div>
+          <div class="tl-change">Termux & multi-platform support</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-ver">v1.0 — "Genesis"</div>
+        <div class="tl-date">Late 2024</div>
+        <div class="tl-changes">
+          <div class="tl-change">Private beta — 200 tools — community bug testing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FAQ ═══════════════ -->
+  <section id="faq" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <span class="section-title">FREQUENTLY ASKED QUESTIONS</span>
+      <div class="section-line"></div>
+    </div>
+    <div id="faq-list"></div>
+  </section>
+
+  <!-- ═══════════════ DISCLAIMER ═══════════════ -->
+  <section id="disclaimer" class="fade-in">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <span class="section-title">LEGAL DISCLAIMER</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="disclaimer">
+      <div class="dis-row">
+        <div class="dis-col">
+          <p class="dis-head">✅ AUTHORIZED USE</p>
+          <ul>
+            <li class="ok">Ethical hacking education & training</li>
+            <li class="ok">Authorized penetration testing</li>
+            <li class="ok">Security research & development</li>
+            <li class="ok">CTF competitions</li>
+            <li class="ok">Vulnerability assessment (with permission)</li>
+          </ul>
+        </div>
+        <div class="dis-col">
+          <p class="dis-head">❌ PROHIBITED USE</p>
+          <ul>
+            <li class="no">Unauthorized system access</li>
+            <li class="no">Malicious activities</li>
+            <li class="no">Illegal surveillance</li>
+            <li class="no">Data theft or destruction</li>
+            <li class="no">Any violation of local/international laws</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(255,34,34,0.2);">
+        <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);line-height:1.8;">
+          By using this software you acknowledge that you understand the legal implications, accept full responsibility for your actions, and agree to use this toolkit ethically and legally. The developer (ATHEX BLACK HAT) assumes NO LIABILITY for misuse, damages, or legal consequences arising from unauthorized activities. License keys are hardware-bound and non-transferable — sharing voids the license immediately.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <span class="glitch">F-SOCIETY // ATHEX BLACK HAT</span>
+  <div class="contact-row">
+    <span class="contact-item">WhatsApp: +92 349-0916663</span>
+    <span class="contact-item">github.com/Athexblackhat</span>
+  </div>
+  <p style="margin-top:0.5rem;">"The best exploit is persistence. The ultimate root is knowledge."</p>
+  <p style="margin-top:0.5rem;color:#1a3a1e;">© 2024–2026 ATHEX BLACK HAT · MIT License · All Rights Reserved</p>
+</footer>
+
+<script>
+/* ── MATRIX RAIN ── */
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
+let cols, drops;
+function initMatrix() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  cols = Math.floor(canvas.width / 18);
+  drops = Array(cols).fill(1);
+}
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(2,13,4,0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#00ff41';
+  ctx.font = '13px Share Tech Mono';
+  const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEF0123456789<>{}[];';
+  drops.forEach((y, i) => {
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(char, i * 18, y * 18);
+    if (y * 18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i]++;
+  });
+}
+initMatrix();
+setInterval(drawMatrix, 55);
+window.addEventListener('resize', initMatrix);
+
+/* ── TYPED OUTPUT ── */
+const lines = [
+  { t: 'prompt', text: '$ ' }, { t: 'cmd', text: 'git clone https://github.com/Athexblackhat/F-SOCIETY' },
+  { t: 'out', text: 'Cloning into F-SOCIETY...' },
+  { t: 'out', text: '[████████████████████] 100% — 3000+ tools ready' },
+  { t: 'prompt', text: '$ ' }, { t: 'cmd', text: 'bash run.sh' },
+  { t: 'out', text: '[✓] AES-256 integrity check passed' },
+  { t: 'out', text: '[✓] License validated — ACCESS GRANTED' },
+  { t: 'out', text: '' },
+  { t: 'green', text: '☠  WELCOME TO F-SOCIETY // ATHEX BLACK HAT ☠' }
+];
+let li = 0, ci = 0;
+const out = document.getElementById('typed-output');
+function typeNext() {
+  if (li >= lines.length) return;
+  const line = lines[li];
+  if (ci === 0) {
+    const div = document.createElement('div');
+    div.id = 'ln-' + li;
+    const sp = document.createElement('span');
+    sp.className = line.t === 'prompt' ? 'prompt' : line.t === 'cmd' ? 'cmd' : line.t === 'green' ? 'out' : 'out';
+    if (line.t === 'green') sp.style.color = '#00ff41';
+    div.appendChild(sp);
+    out.appendChild(div);
+  }
+  const span = document.getElementById('ln-' + li).querySelector('span');
+  if (ci < line.text.length) {
+    span.textContent += line.text[ci];
+    ci++;
+    setTimeout(typeNext, li === 0 ? 35 : 18);
+  } else {
+    ci = 0; li++;
+    setTimeout(typeNext, li < lines.length ? 200 : 0);
+  }
+}
+setTimeout(typeNext, 800);
+
+/* ── COUNTERS ── */
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  let start = 0;
+  const dur = 1800;
+  const step = 16;
+  const inc = target / (dur / step);
+  const timer = setInterval(() => {
+    start = Math.min(start + inc, target);
+    el.textContent = Math.floor(start).toLocaleString() + suffix;
+    if (start >= target) clearInterval(timer);
+  }, step);
+}
+
+/* ── DONUT CHART ── */
+const categories = [
+  { name: 'Exploitation', pct: 18, color: '#ff2222' },
+  { name: 'Web App Testing', pct: 16, color: '#00eeff' },
+  { name: 'Recon / OSINT', pct: 14, color: '#00ff41' },
+  { name: 'Password Attacks', pct: 12, color: '#ffaa00' },
+  { name: 'Wireless', pct: 10, color: '#ff66ff' },
+  { name: 'Forensics', pct: 10, color: '#66ffaa' },
+  { name: 'Post-Exploit', pct: 10, color: '#ff8800' },
+  { name: 'Other', pct: 10, color: '#446644' }
+];
+function drawDonut() {
+  const svg = document.getElementById('ring-svg');
+  const cx = 110, cy = 110, r = 85, w = 28;
+  let angle = -Math.PI / 2;
+  categories.forEach((cat, i) => {
+    const slice = (cat.pct / 100) * 2 * Math.PI;
+    const x1 = cx + r * Math.cos(angle);
+    const y1 = cy + r * Math.sin(angle);
+    const x2 = cx + r * Math.cos(angle + slice);
+    const y2 = cy + r * Math.sin(angle + slice);
+    const x3 = cx + (r - w) * Math.cos(angle + slice);
+    const y3 = cy + (r - w) * Math.sin(angle + slice);
+    const x4 = cx + (r - w) * Math.cos(angle);
+    const y4 = cy + (r - w) * Math.sin(angle);
+    const large = slice > Math.PI ? 1 : 0;
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} L${x3},${y3} A${r-w},${r-w} 0 ${large},0 ${x4},${y4} Z`);
+    path.setAttribute('fill', cat.color);
+    path.setAttribute('opacity', '0.85');
+    path.style.transform = 'scale(0)';
+    path.style.transformOrigin = `${cx}px ${cy}px`;
+    path.style.transition = `transform 0.6s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.08}s`;
+    svg.appendChild(path);
+    setTimeout(() => path.style.transform = 'scale(1)', 100);
+    angle += slice + 0.02;
+  });
+  /* legend */
+  const leg = document.getElementById('ring-legend');
+  categories.forEach(cat => {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<div class="legend-dot" style="background:${cat.color}"></div><span class="legend-label">${cat.name}</span><span class="legend-pct">${cat.pct}%</span>`;
+    leg.appendChild(item);
+  });
+}
+drawDonut();
+
+/* ── BAR CHART ── */
+const barData = [
+  { label: 'Recon & OSINT', val: 420, max: 500 },
+  { label: 'Web Testing', val: 380, max: 500 },
+  { label: 'Exploitation', val: 360, max: 500 },
+  { label: 'Password Attacks', val: 290, max: 500 },
+  { label: 'Wireless', val: 240, max: 500 },
+  { label: 'Forensics', val: 220, max: 500 },
+  { label: 'Post-Exploit', val: 200, max: 500 },
+  { label: 'Anonymity', val: 180, max: 500 },
+  { label: 'Cloud Security', val: 160, max: 500 },
+  { label: 'Blue Team', val: 140, max: 500 }
+];
+const bc = document.getElementById('bar-chart');
+barData.forEach(d => {
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  row.innerHTML = `<div class="bar-label">${d.label}</div><div class="bar-track"><div class="bar-fill" data-width="${(d.val/d.max)*100}%"></div></div><div class="bar-val">${d.val}+</div>`;
+  bc.appendChild(row);
+});
+
+/* ── COMPAT MATRIX ── */
+const compatData = [
+  ['Recon Tools',      '✅','✅','✅','✅'],
+  ['Scanning Tools',   '✅','✅','✅','⚠️'],
+  ['Exploitation',     '✅','✅','⚠️','⚠️'],
+  ['Wireless',         '✅','❌','❌','❌'],
+  ['Forensics',        '✅','✅','✅','✅'],
+  ['Web App Testing',  '✅','✅','✅','✅'],
+  ['Password Attacks', '✅','✅','✅','✅'],
+  ['Post-Exploitation','✅','✅','⚠️','⚠️'],
+  ['Cloud Security',   '✅','⚠️','✅','⚠️'],
+  ['Anonymity',        '✅','✅','⚠️','⚠️'],
+];
+const tbody = document.getElementById('compat-tbody');
+compatData.forEach(row => {
+  const tr = document.createElement('tr');
+  row.forEach((cell, i) => {
+    const td = document.createElement('td');
+    if (i === 0) { td.textContent = cell; }
+    else {
+      const cls = cell === '✅' ? 'chk-full' : cell === '⚠️' ? 'chk-warn' : 'chk-no';
+      td.innerHTML = `<span class="${cls}">${cell}</span>`;
+    }
+    tr.appendChild(td);
+  });
+  tbody.appendChild(tr);
+});
+
+/* ── CATEGORIES ── */
+const catData = [
+  { icon: '🔍', name: 'INFORMATION GATHERING', count: '420+ tools', tools: ['theHarvester','recon-ng','sherlock','phoneinfoga','dmitry','Shodan'] },
+  { icon: '🎯', name: 'SCANNING & ENUMERATION', count: '280+ tools', tools: ['nmap','masscan','nikto','whatweb','wpscan','gobuster'] },
+  { icon: '💥', name: 'EXPLOITATION', count: '360+ tools', tools: ['metasploit','sqlmap','beef','searchsploit','routersploit'] },
+  { icon: '🔑', name: 'PASSWORD ATTACKS', count: '290+ tools', tools: ['hydra','john','hashcat','medusa','crowbar','crunch'] },
+  { icon: '🌐', name: 'WEB APP TESTING', count: '380+ tools', tools: ['burpsuite','zap','wfuzz','ffuf','commix','xsser'] },
+  { icon: '📡', name: 'WIRELESS TESTING', count: '240+ tools', tools: ['aircrack-ng','wifite','fluxion','bettercap','hcxdumptool'] },
+  { icon: '🕵️', name: 'FORENSICS', count: '220+ tools', tools: ['autopsy','volatility','foremost','binwalk','exiftool'] },
+  { icon: '🔒', name: 'POST-EXPLOITATION', count: '200+ tools', tools: ['empire','covenant','pupy','merlin','powershell'] },
+  { icon: '☁️', name: 'CLOUD SECURITY', count: '160+ tools', tools: ['prowler','scoutsuite','cloudsploit','cloudmapper'] },
+  { icon: '🛡️', name: 'BLUE TEAM / DEFENSE', count: '140+ tools', tools: ['snort','ossec','wazuh','elastic','zeek'] },
+  { icon: '🎭', name: 'ANONYMITY & PRIVACY', count: '180+ tools', tools: ['tor','proxychains','macchanger','anonsurf','nipe'] },
+  { icon: '📊', name: 'REPORTING', count: '80+ tools', tools: ['faraday','dradis','serpico','magictree'] },
+];
+const cg = document.getElementById('cat-grid');
+catData.forEach(cat => {
+  const card = document.createElement('div');
+  card.className = 'cat-card';
+  card.innerHTML = `<span class="cat-icon">${cat.icon}</span><div class="cat-name">${cat.name}</div><div class="cat-count">${cat.count}</div><div class="cat-tools">${cat.tools.map(t=>`<span>${t}</span>`).join('')}</div>`;
+  cg.appendChild(card);
+});
+
+/* ── FAQ ── */
+const faqs = [
+  { q: 'Is F-SOCIETY legal to use?', a: 'Yes — designed for ethical hacking, authorized penetration testing, security research, and education. Using these tools against systems without authorization is illegal.' },
+  { q: 'How do I get a license key?', a: 'Contact via WhatsApp: +92 349-0916663. Pricing details and license key generation typically complete within 24 hours.' },
+  { q: 'Can I run F-SOCIETY on Android?', a: 'Full Termux support on Android. Install Termux from F-Droid and follow the Termux guide. Note: wireless tools require root access.' },
+  { q: 'How often are tools updated?', a: 'Monthly updates with new tools and bug fixes. Critical security patches are released immediately. The toolkit checks for updates on every launch.' },
+  { q: 'What happens when my license expires?', a: 'The toolkit locks until you renew. Your installed tools remain on disk but are not accessible via the F-SOCIETY interface. Renewal is quick and preserves all settings.' },
+  { q: 'Can I share my license key?', a: 'No. Each license is hardware-bound. Sharing violates the agreement and results in immediate revocation without refund.' },
+  { q: 'Does F-SOCIETY support macOS M1/M2?', a: 'Experimental support is available. Some tools may not function due to ARM architecture limitations. Full Apple Silicon support is in development.' },
+  { q: 'What if installation fails partway through?', a: 'Error recovery protocols prevent partial installations from breaking your system. Re-run bash run.sh — the installer detects and resumes from the last successful step.' },
+];
+const fl = document.getElementById('faq-list');
+faqs.forEach(f => {
+  const item = document.createElement('div');
+  item.className = 'faq-item';
+  item.innerHTML = `<div class="faq-q">${f.q}<span class="faq-arrow">▶</span></div><div class="faq-a">${f.a}</div>`;
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+  fl.appendChild(item);
+});
+
+/* ── TABS ── */
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── SCROLL OBSERVER ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    el.classList.add('visible');
+    /* trigger bar fills */
+    el.querySelectorAll('.bar-fill').forEach(b => {
+      b.style.width = b.dataset.width;
+    });
+    /* trigger counters */
+    el.querySelectorAll('.counter').forEach(c => animateCounter(c));
+    observer.unobserve(el);
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
