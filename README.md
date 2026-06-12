@@ -1,6 +1,3 @@
-
-
-
 <div align="center">
 
 ```
@@ -14,7 +11,7 @@
 
 # ☠ F-SOCIETY TOOLS INSTALLER ☠
 ### The Ultimate Penetration Testing & Cyber Security Toolkit Framework
-**Crafted with precision by ATHEX BLACK HAT**
+**Crafted with precision by ATHEX BLACK HAT x ALTHEA BLACK HAT**
 
 ---
 
@@ -22,6 +19,7 @@
 ![Tools](https://img.shields.io/badge/Total_Tools-10,000+-brightgreen?style=for-the-badge&logo=kalilinux)
 ![Platform](https://img.shields.io/badge/Platform-Linux_|_Termux_|_WSL-blue?style=for-the-badge&logo=linux)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+![Free](https://img.shields.io/badge/Price-Free_%26_Open_Source-success?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-brightgreen?style=for-the-badge)
 
@@ -39,25 +37,24 @@
 - [Compatibility Matrix](#-compatibility-matrix)
 - [Installation Guide](#-installation-guide)
 - [Security Architecture](#-security-architecture)
-- [License System](#-license-system)
 - [Update History](#-update-history)
 - [FAQ](#-faq)
-- [Developer](#-developer)
+- [Developers](#-developers)
 - [Disclaimer](#️-disclaimer)
 
 ---
 
 ## 📖 Overview
 
-**F-SOCIETY Tools Installer** is a state-of-the-art penetration testing toolkit aggregator developed for the cyber security community. Born from the vision of making advanced security tools accessible across all platforms, F-SOCIETY has evolved from a simple installer into a comprehensive framework housing **10,000+ security tools** under one unified interface.
+**F-SOCIETY Tools Installer** is a state-of-the-art penetration testing toolkit aggregator developed for the cyber security community. Born from the vision of making advanced security tools accessible across all platforms, F-SOCIETY has evolved from a simple installer into a comprehensive framework housing **10,000+ security tools** under one unified interface — completely **free and open-source**.
 
 | Aspect | F-SOCIETY | Traditional Toolkits |
 |---|---|---|
-| Tool Count | **10,000** | 100–500 |
+| Tool Count | **10,000+** | 100–500 |
 | Platform Support | Linux + Android + WSL | Linux Only |
 | Installation | One-Click Automated | Manual Per Tool |
 | Updates | Rolling / Priority | Irregular |
-| Security | AES-256 + Licensed | Open Access |
+| Cost | **Free & Open Source** | Often Paid |
 | Categories | 20+ Specialized | 5–10 General |
 
 ---
@@ -67,31 +64,20 @@
 ```mermaid
 graph TD
     A[👤 User] --> B[bash run.sh]
-    B --> C{License\nValidation}
-    C -- ✅ Valid --> D[Main Menu]
-    C -- ❌ Invalid --> E[🔒 Lockout]
-    D --> F[Category Selection]
-    F --> G[Tool Installer]
-    G --> H[Parallel Download Engine]
-    H --> I[Dependency Resolver]
-    I --> J[Integrity Check]
-    J --> K[✅ Tool Ready]
+    B --> C[Main Menu]
+    C --> D[Category Selection]
+    D --> E[Tool Installer]
+    E --> F[Parallel Download Engine]
+    F --> G[Dependency Resolver]
+    G --> H[Integrity Check]
+    H --> I[✅ Tool Ready]
 
     style A fill:#003311,color:#00ff41,stroke:#00ff41
-    style C fill:#1a0000,color:#ff4444,stroke:#ff4444
-    style E fill:#1a0000,color:#ff4444,stroke:#ff4444
-    style K fill:#003311,color:#00ff41,stroke:#00ff41
+    style I fill:#003311,color:#00ff41,stroke:#00ff41
 ```
 
 ```mermaid
 graph LR
-    subgraph "🔐 Security Layers"
-        S1[AES-256 Encryption]
-        S2[Hardware ID Binding]
-        S3[Anti-Tamper Shield]
-        S4[Brute Force Guard]
-    end
-
     subgraph "📦 Tool Pipeline"
         T1[Clone Repo]
         T2[Verify Checksum]
@@ -107,8 +93,6 @@ graph LR
         P5[Black Arch]
     end
 
-    S1 --> T1
-    S2 --> T2
     T1 --> T2 --> T3 --> T4
     T4 --> P1 & P2 & P3 & P4 & P5
 ```
@@ -118,7 +102,7 @@ graph LR
 ## 🔥 Key Features
 
 ### 🛠 Tool Arsenal
-- **3000+ Security Tools** — largest curated collection available
+- **10,000+ Security Tools** — largest curated collection available
 - **20+ Categories** — recon to exploitation, forensics to wireless
 - **Verified & Tested** — every tool validated before inclusion
 - **Rolling Updates** — new tools added monthly
@@ -131,25 +115,24 @@ graph LR
 - **macOS** — experimental support
 - **Windows WSL2** — partial functionality
 
-### 🔐 Security Systems
-- **AES-256-CBC Encryption** — all sensitive data protected
-- **Hardware Binding** — license tied to your machine
-- **Anti-Tamper Protection** — self-defense mechanisms
-- **Brute Force Prevention** — 3-attempt lockout
-- **Integrity Verification** — checksum validation on every run
-
-### ⚡ Performance
+### ⚡ Performance & Reliability
 - **Parallel Downloads** — significantly faster installation
 - **Auto Dependency Resolution** — no manual package hunting
+- **Integrity Verification** — checksum validation on every run
 - **Error Recovery** — failed installs don't break your system
 - **Low Resource Usage** — runs on minimal hardware (512 MB RAM minimum)
+
+### 🆓 100% Free & Open Source
+- No license keys, no activation, no restrictions
+- Fully open codebase — audit, modify, and contribute freely
+- Community-driven development and support
 
 ---
 
 ## 📦 Tool Categories
 
 ```mermaid
-pie title Tool Distribution (3000+ total)
+pie title Tool Distribution (10,000+ total)
     "Recon & OSINT" : 420
     "Web App Testing" : 380
     "Exploitation" : 360
@@ -352,55 +335,15 @@ cd F-SOCIETY && bash run.sh
 flowchart TD
     A[🚀 Launch run.sh] --> B[Checksum Validation]
     B --> C{Integrity\nPassed?}
-    C -- No --> D[🔴 Self-Defense Protocol\nProcess Terminated]
-    C -- Yes --> E[Hardware ID Check]
-    E --> F{License\nBound to\nThis Machine?}
-    F -- No --> G[🔴 Unauthorized Device\nAccess Denied]
-    F -- Yes --> H[License Expiry Check]
-    H -- Expired --> I[🟡 Renewal Required]
-    H -- Valid --> J[AES-256 Decrypt\nTool Database]
-    J --> K[✅ Full Access Granted]
+    C -- No --> D[🔴 Abort & Re-fetch]
+    C -- Yes --> E[Load Tool Database]
+    E --> F[✅ Full Access Granted]
 
-    style D fill:#3d0000,color:#ff6666,stroke:#ff0000
-    style G fill:#3d0000,color:#ff6666,stroke:#ff0000
-    style I fill:#3d2200,color:#ffaa44,stroke:#ff8800
-    style K fill:#003311,color:#44ff88,stroke:#00ff41
+    style D fill:#3d2200,color:#ffaa44,stroke:#ff8800
+    style F fill:#003311,color:#44ff88,stroke:#00ff41
 ```
 
-### Tamper Response System
-
-| Trigger | Response |
-|---|---|
-| Signature removed | Immediate lockout |
-| Code modified | Self-destruct sequence |
-| Debug attempt detected | Process termination |
-| String extraction attempt | Fake data display |
-| Unauthorized device | System lockdown |
-
----
-
-## 🔐 License System
-
-> ⚠️ **F-SOCIETY is NO LONGER FREE.** A valid license key is mandatory for access as of v4.0.
-
-
-### How to Purchase
-
-```
-📱  WhatsApp : +92 349-0916663
-🐙  GitHub   : github.com/Athexblackhat
-⏱  Response : Within 24 hours
-🕐  Hours    : Mon–Fri 09:00–22:00 PKT · Sat 12:00–18:00 PKT
-```
-
-### Activation
-
-```bash
-bash run.sh
-# Enter license key when prompted:
-# Enter License Key: XXXX-XXXX-XXXX-XXXX
-# ✅ License Activated Successfully!
-```
+F-SOCIETY performs integrity checks on launch to ensure your installation hasn't been corrupted or tampered with, automatically re-fetching affected files if needed — no license checks, no activation, no restrictions.
 
 ---
 
@@ -430,43 +373,38 @@ timeline
                 : Cloud & IoT categories
                 : Green color scheme
     Dec 22 2025 : v3.5 New Dawn
-                : License system launched
-                : AES-256 encryption
-                : Complete UI redesign
+                : UI redesign
                 : 40% faster installs
-    MAY 27 2026 : v4.0 Ultimate
-                : License system Enhanced
-                : AES-256 encryption + xor + base64
+    12 Jun 2026 : v4.0 Ultimate
+                : Now 100% free & open source
                 : Complete UI redesign
-                : 6Thousand+ New Tools Added
+                : 6,000+ new tools added
 ```
-### 🔥 v4 — "Ultimate" *(MAY 27, 2026)*
+
+### 🔥 v4.0 — "Ultimate" *(June 2026)*
 <details>
 <summary><b>View full changelog</b></summary>
 
 **Major Changes:**
-- 🔴 Licensing system implemented — no more free access
+- 🆓 **F-SOCIETY is now 100% free and open source — no license required**
 - 🆕 50+ new major tools added
-- 🛠 6000+ new tools integrated
+- 🛠 6,000+ new tools integrated
 - 🎨 Complete UI redesign — new animated banners
-- 🔐 AES-256 encryption on all sensitive data
-- 🛡 Anti-tamper protection with self-defense mechanisms
 - 📱 Improved Termux / Android compatibility
 - ⚡ 40% faster installation via parallel downloads
 - 🐛 50+ reported bugs resolved
-- 
-### 🔥 v3 — "New Dawn" *(December 22, 2025)*
+
+</details>
+
+### 🔥 v3.5 — "New Dawn" *(December 22, 2025)*
 
 <details>
 <summary><b>View full changelog</b></summary>
 
 **Major Changes:**
-- 🔴 Licensing system implemented — no more free access
 - 🆕 2 new major tool categories added
 - 🛠 370+ new tools integrated
 - 🎨 Complete UI redesign — new animated banners
-- 🔐 AES-256 encryption on all sensitive data
-- 🛡 Anti-tamper protection with self-defense mechanisms
 - 📱 Improved Termux / Android compatibility
 - ⚡ 40% faster installation via parallel downloads
 - 🐛 50+ reported bugs resolved
@@ -478,14 +416,9 @@ Cloud Security:    prowler v3 · scoutsuite · cloudsploit · cloudmapper
 API Security:      postman-cli · graphql-scanner · swagger-parser · api-fuzzer
 ```
 
-**Breaking Changes:**
-- ❌ Free access discontinued
-- ❌ Old license format deprecated
-- ❌ Legacy config files must be migrated
-
 </details>
 
-### 🔥 v2 — "Phoenix" *(October 26, 2025)*
+### 🔥 v3 — "Phoenix" *(October 26, 2025)*
 
 <details>
 <summary><b>View full changelog</b></summary>
@@ -498,7 +431,7 @@ API Security:      postman-cli · graphql-scanner · swagger-parser · api-fuzze
 
 </details>
 
-### 🔥 v1 — "Evolution" *(October 24, 2025)*
+### 🔥 v2.5 — "Evolution" *(October 24, 2025)*
 
 <details>
 <summary><b>View full changelog</b></summary>
@@ -513,9 +446,6 @@ API Security:      postman-cli · graphql-scanner · swagger-parser · api-fuzze
 
 ---
 
-
----
-
 ## ❓ FAQ
 
 <details>
@@ -525,9 +455,9 @@ Yes. F-SOCIETY is designed for ethical hacking, authorized penetration testing, 
 </details>
 
 <details>
-<summary><b>How do I get a license key?</b></summary>
+<summary><b>Is F-SOCIETY really free?</b></summary>
 
-Contact via WhatsApp at **+92 349-0916663**. Pricing details are provided and your license key is generated — activation typically takes less than 24 hours.
+Yes — F-SOCIETY is 100% free and open source. No license keys, no activation, no hidden costs.
 </details>
 
 <details>
@@ -543,18 +473,6 @@ Monthly updates for new tools and bug fixes. Critical security updates are relea
 </details>
 
 <details>
-<summary><b>What happens if my license expires?</b></summary>
-
-The toolkit locks until you renew. Your installed tools remain on disk but are inaccessible through F-SOCIETY until renewed. Renewal preserves all your existing settings.
-</details>
-
-<details>
-<summary><b>Can I share my license key?</b></summary>
-
-No. Each license is hardware-bound. Sharing violates the license agreement and results in **immediate revocation without refund**.
-</details>
-
-<details>
 <summary><b>Does F-SOCIETY work on macOS M1/M2?</b></summary>
 
 Experimental support is available. Some tools may not function due to ARM architecture limitations. Full Apple Silicon support is actively being developed.
@@ -566,30 +484,37 @@ Experimental support is available. Some tools may not function due to ARM archit
 Error recovery protocols prevent partial installations from breaking your system. Simply re-run `bash run.sh` — the installer detects and resumes from the last successful step.
 </details>
 
+<details>
+<summary><b>Can I contribute to F-SOCIETY?</b></summary>
+
+Absolutely. F-SOCIETY is open source — pull requests, issue reports, and tool suggestions are welcome on GitHub.
+</details>
+
 ---
 
-## 👨‍💻 Developer
+## 👨‍💻 Developers
 
 <div align="center">
 
 ```
- █████╗ ████████╗██╗  ██╗███████╗██╗  ██╗    ██████╗ ██╗      █████╗  ██████╗██╗  ██╗    ██╗  ██╗ █████╗ ████████╗
-██╔══██╗╚══██╔══╝██║  ██║██╔════╝╚██╗██╔╝    ██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝    ██║  ██║██╔══██╗╚══██╔══╝
-███████║   ██║   ███████║█████╗   ╚███╔╝     ██████╔╝██║     ███████║██║     █████╔╝     ███████║███████║   ██║   
-██╔══██║   ██║   ██╔══██║██╔══╝   ██╔██╗     ██╔══██╗██║     ██╔══██║██║     ██╔═██╗     ██╔══██║██╔══██║   ██║   
-██║  ██║   ██║   ██║  ██║███████╗██╔╝ ██╗    ██████╔╝███████╗██║  ██║╚██████╗██║  ██╗    ██║  ██║██║  ██║   ██║   
-╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   
+ █████╗ ████████╗██╗  ██╗███████╗██╗  ██╗    ██╗  ██╗     █████╗ ██╗  ████████╗██╗  ██╗███████╗ █████╗ 
+██╔══██╗╚══██╔══╝██║  ██║██╔════╝╚██╗██╔╝    ╚██╗██╔╝    ██╔══██╗██║  ╚══██╔══╝██║  ██║██╔════╝██╔══██╗
+███████║   ██║   ███████║█████╗   ╚███╔╝      ╚███╔╝     ███████║██║     ██║   ███████║█████╗  ███████║
+██╔══██║   ██║   ██╔══██║██╔══╝   ██╔██╗      ██╔██╗     ██╔══██║██║     ██║   ██╔══██║██╔══╝  ██╔══██║
+██║  ██║   ██║   ██║  ██║███████╗██╔╝ ██╗    ██╔╝ ██╗    ██║  ██║███████╗██║   ██║  ██║███████╗██║  ██║
+╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝    ╚═╝  ╚═╝╚══════╝╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+                                                                                                       
 ```
 
 </div>
 
-ATHEX BLACK HAT is a cyber security researcher, penetration tester, and tool developer dedicated to creating powerful yet accessible security tools for the ethical hacking community.
+F-SOCIETY is jointly developed and maintained by **ATHEX BLACK HAT** and **ALTHEA BLACK HAT** — cyber security researchers, penetration testers, and tool developers dedicated to creating powerful yet accessible security tools for the ethical hacking community.
 
 > *"Security through knowledge. Power through tools. Ethics through choice."*
 
 | Stat | Value |
 |---|---|
-| Tools Curated & Maintained | 3000+ |
+| Tools Curated & Maintained | 10,000+ |
 | Categories Organized | 20+ |
 | Development Hours | 1000+ |
 | Active Since | Late 2024 |
@@ -598,9 +523,8 @@ ATHEX BLACK HAT is a cyber security researcher, penetration tester, and tool dev
 
 | Platform | Details |
 |---|---|
-| 📱 WhatsApp | +92 349-0916663 |
 | 🐙 GitHub | [github.com/Athexblackhat](https://github.com/Athexblackhat) |
-| ⏱ Response Time | < 24 hours |
+| 📱 WhatsApp | +92 349-0916663 |
 
 ---
 
@@ -622,13 +546,13 @@ ATHEX BLACK HAT is a cyber security researcher, penetration tester, and tool dev
 - Data theft or destruction
 - Any violation of local or international laws
 
-The developer (**ATHEX BLACK HAT**) assumes **NO LIABILITY** for misuse of this software, damages caused by improper use, legal consequences of unauthorized activities, or third-party tool behavior.
+The developers (**ATHEX BLACK HAT** and **ALTHEA BLACK HAT**) assume **NO LIABILITY** for misuse of this software, damages caused by improper use, legal consequences of unauthorized activities, or third-party tool behavior.
 
 **By using this software, you acknowledge that:**
 1. You understand the legal implications
 2. You accept full responsibility for your actions
 3. You will use this toolkit ethically and legally
-4. The developer is not responsible for your actions
+4. The developers are not responsible for your actions
 
 *If you do not agree, do not use this software.*
 
@@ -637,7 +561,7 @@ The developer (**ATHEX BLACK HAT**) assumes **NO LIABILITY** for misuse of this 
 ## 📜 License
 
 ```
-MIT License — Copyright (c) 2024–2026 ATHEX BLACK HAT
+MIT License — Copyright (c) 2024–2026 ATHEX BLACK HAT & ALTHEA BLACK HAT
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -653,17 +577,11 @@ SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS.
 ```
 
-**Additional Terms:**
-1. **LICENSE KEY REQUIRED** — valid key mandatory for operation
-2. **NO REDISTRIBUTION** — license keys are non-transferable
-3. **NO MODIFICATION** — tampering with security mechanisms voids license
-4. **EDUCATIONAL USE** — intended for ethical/educational purposes only
-
 ---
 
 <div align="center">
 
-⚡ **POWERED BY ATHEX BLACK HAT** ⚡
+⚡ **POWERED BY ATHEX BLACK HAT x ALTHEA BLACK HAT** ⚡
 
 *"The best exploit is persistence. The ultimate root is knowledge."*
 
@@ -673,7 +591,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS.
 
 Made with ❤️ for the Cyber Security Community
 
-**© 2024–2026 ATHEX BLACK HAT · All Rights Reserved**
+**© 2024–2026 ATHEX BLACK HAT & ALTHEA BLACK HAT · All Rights Reserved**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Athexblackhat-181717?style=flat-square&logo=github)](https://github.com/Athexblackhat)
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-Contact-25D366?style=flat-square&logo=whatsapp)](https://wa.me/923490916663)
