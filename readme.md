@@ -592,7 +592,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS.
 
 Made with ❤️ for the Cyber Security Community
 
-**© 2024–2026 ATHEX BLACK HAT & ALTHEA BLACK HAT · All Rights Reserved**
+**© 2025–2026 ATHEX BLACK HAT & ALTHEA BLACK HAT · All Rights Reserved**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Athexblackhat-181717?style=flat-square&logo=github)](https://github.com/Athexblackhat)
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-Contact-25D366?style=flat-square&logo=whatsapp)](https://wa.me/923490916663)
