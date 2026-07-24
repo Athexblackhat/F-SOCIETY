@@ -22,7 +22,6 @@
 ![Free](https://img.shields.io/badge/Price-Free_%26_Open_Source-success?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
 ![Maintained](https://img.shields.io/badge/Maintained-Yes-brightgreen?style=for-the-badge)
-
 </div>
 
 ---
