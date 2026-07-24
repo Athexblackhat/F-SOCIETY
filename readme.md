@@ -11,7 +11,7 @@
 
 # ☠ F-SOCIETY TOOLS INSTALLER ☠
 ### The Ultimate Penetration Testing & Cyber Security Toolkit Framework
-**Crafted with precision by ATHEX BLACK HAT x ALTHEA BLACK HAT**
+**Crafted with precision by ATHEX BLACK HAT**
 
 ---
 
