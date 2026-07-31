@@ -11,7 +11,7 @@
 
 # ☠ F-SOCIETY TOOLS INSTALLER ☠
 ### The Ultimate Penetration Testing & Cyber Security Toolkit Framework
-**Crafted with precision by ATHEX BLACK HAT**
+**Crafted with precision by ATHEX BLACK HAT & ALTHEA BLACK HAT**
 
 ---
 
@@ -546,7 +546,7 @@ F-SOCIETY is jointly developed and maintained by **ATHEX BLACK HAT** and **ALTHE
 - Data theft or destruction
 - Any violation of local or international laws
 
-The developers (**ATHEX BLACK HAT** and **ALTHEA BLACK HAT**) assume **NO LIABILITY** for misuse of this software, damages caused by improper use, legal consequences of unauthorized activities, or third-party tool behavior.
+The developers (**ATHEX BLACK HAT** & **ALTHEA BLACK HAT**) assume **NO LIABILITY** for misuse of this software, damages caused by improper use, legal consequences of unauthorized activities, or third-party tool behavior.
 
 **By using this software, you acknowledge that:**
 1. You understand the legal implications
